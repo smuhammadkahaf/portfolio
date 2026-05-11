@@ -3,58 +3,661 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <meta name="description" content="Muhammad Kahaf - Computer Engineering Student Portfolio">
-  <meta name="keywords" content="Portfolio, Computer Engineering, Python, C++, Embedded Systems">
-  <meta name="author" content="Muhammad Kahaf">
-
-
-  <title>Muhammad Kahaf | Portfolio</title>
-
-  <!-- FONT -->
+  <title>Muhammad Kahaf — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #050a0f;
+      --bg2:       #090f17;
+      --panel:     #0d1520;
+      --border:    #1a2e44;
+      --accent:    #00d4ff;
+      --accent2:   #00ff9d;
+      --accent3:   #ff4d6d;
+      --text:      #c8dde8;
+      --muted:     #4a6478;
+      --glow:      0 0 20px rgba(0,212,255,0.35);
+      --glow2:     0 0 20px rgba(0,255,157,0.35);
+    }
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/navbar.css">
-  <link rel="stylesheet" href="assets/css/hero.css">
-  <link rel="stylesheet" href="assets/css/about.css">
-  <link rel="stylesheet" href="assets/css/skills.css">
-  <link rel="stylesheet" href="assets/css/projects.css">
-  <link rel="stylesheet" href="assets/css/achievements.css">
-  <link rel="stylesheet" href="assets/css/contact.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCAN LINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,212,255,0.018) 2px,
+        rgba(0,212,255,0.018) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(5,10,15,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900; font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-shadow: var(--glow);
+    }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); text-shadow: var(--glow); }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 40px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem; color: var(--accent2);
+      letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .section-label::before { content: '// '; color: var(--muted); }
+    h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700; color: #fff;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 80px;
+      max-width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 60px; width: 100%;
+    }
+    .hero-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem; color: var(--accent);
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 14px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900; color: #fff;
+      line-height: 1.1;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero-name span { color: var(--accent); text-shadow: var(--glow); }
+    .hero-sub {
+      font-size: 1.15rem; color: var(--muted);
+      font-weight: 600; letter-spacing: 0.05em;
+      margin: 16px 0 30px;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 12px 28px; border-radius: 2px;
+      transition: all 0.25s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary {
+      background: var(--accent); color: #050a0f;
+      border: 1px solid var(--accent);
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent); box-shadow: var(--glow); }
+    .btn-outline {
+      background: transparent; color: var(--accent2);
+      border: 1px solid var(--accent2);
+    }
+    .btn-outline:hover { background: rgba(0,255,157,0.08); box-shadow: var(--glow2); }
+
+    /* avatar */
+    .hero-avatar {
+      animation: fadeUp 0.7s 0.15s ease both;
+      position: relative;
+    }
+    .avatar-wrap {
+      width: 220px; height: 220px;
+      position: relative;
+    }
+    .avatar-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 2px solid var(--accent);
+      box-shadow: var(--glow), inset 0 0 30px rgba(0,212,255,0.1);
+      display: block;
+    }
+    .avatar-wrap::before {
+      content: '';
+      position: absolute; inset: -8px;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 6px;
+    }
+    .avatar-wrap::after {
+      content: '';
+      position: absolute; top: -8px; right: -8px;
+      width: 20px; height: 20px;
+      border-top: 2px solid var(--accent2);
+      border-right: 2px solid var(--accent2);
+    }
+    .corner-bl {
+      position: absolute; bottom: -8px; left: -8px;
+      width: 20px; height: 20px;
+      border-bottom: 2px solid var(--accent2);
+      border-left: 2px solid var(--accent2);
+    }
+
+    /* stat bar under avatar */
+    .hero-stat {
+      margin-top: 18px; text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem; color: var(--accent2);
+      letter-spacing: 0.12em;
+    }
+    .cgpa-bar {
+      margin: 6px 0 0;
+      height: 4px; background: var(--border);
+      border-radius: 2px; overflow: hidden;
+    }
+    .cgpa-fill {
+      height: 100%; width: 77.8%;
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      box-shadow: 0 0 8px var(--accent2);
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px; align-items: start;
+    }
+    .about-text { font-size: 1.05rem; color: var(--text); line-height: 1.8; }
+    .about-text p + p { margin-top: 14px; }
+    .courses-list {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 24px; border-radius: 4px;
+    }
+    .courses-list h3 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem; color: var(--accent);
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .courses-list ul { list-style: none; }
+    .courses-list li {
+      font-size: 0.92rem; color: var(--text);
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .courses-list li::before { content: '▶'; font-size: 0.5rem; color: var(--accent2); }
+    .courses-list li:last-child { border-bottom: none; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 20px 16px;
+      border-radius: 4px;
+      text-align: center;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--glow);
+    }
+    .skill-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .skill-name {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem; color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-list { display: flex; flex-direction: column; gap: 24px; }
+    .project-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 28px 32px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .project-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; width: 3px; height: 100%;
+      background: var(--accent);
+      box-shadow: var(--glow);
+    }
+    .project-card:nth-child(2)::before { background: var(--accent2); box-shadow: var(--glow2); }
+    .project-card:nth-child(3)::before { background: var(--accent3); }
+    .project-card:hover { border-color: var(--accent); box-shadow: 0 4px 30px rgba(0,212,255,0.12); }
+    .project-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+    .project-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1rem; font-weight: 700; color: #fff;
+    }
+    .project-num {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem; color: var(--muted);
+      letter-spacing: 0.12em; white-space: nowrap;
+    }
+    .project-desc { font-size: 0.97rem; color: var(--text); line-height: 1.7; margin-bottom: 18px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem; color: var(--accent2);
+      background: rgba(0,255,157,0.06);
+      border: 1px solid rgba(0,255,157,0.2);
+      padding: 3px 10px; border-radius: 2px;
+      letter-spacing: 0.08em;
+    }
+    .project-link {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem; color: var(--accent);
+      text-decoration: none; letter-spacing: 0.1em;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    .project-link:hover { color: #fff; text-shadow: var(--glow); }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements-list { display: flex; flex-direction: column; gap: 20px; }
+    .ach-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 22px 28px;
+      display: flex; align-items: center; gap: 20px;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .ach-card:hover { border-color: var(--accent2); box-shadow: var(--glow2); }
+    .ach-badge {
+      font-size: 2rem; flex-shrink: 0;
+      width: 56px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,212,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .ach-body {}
+    .ach-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 4px; }
+    .ach-date {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem; color: var(--accent2);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .contact-info { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 16px 20px; border-radius: 4px;
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .contact-item:hover { border-color: var(--accent); box-shadow: var(--glow); }
+    .contact-icon { font-size: 1.2rem; }
+    .contact-label { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; display: block; margin-bottom: 2px; }
+    .contact-val { font-size: 0.95rem; color: var(--text); }
+    .contact-msg {
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 28px; border-radius: 4px;
+    }
+    .contact-msg p { font-size: 1rem; color: var(--text); line-height: 1.8; margin-bottom: 20px; }
+
+    /* ── RESUME DOWNLOAD ── */
+    .resume-section {
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .resume-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,212,255,0.04) 0%, transparent 70%);
+    }
+    .resume-section p { font-size: 1rem; color: var(--muted); margin-bottom: 28px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.12em;
+    }
+    footer span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 760px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+      section { padding: 70px 20px; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-avatar { display: flex; flex-direction: column; align-items: center; }
+      .hero-btns { justify-content: center; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">Muhammad Kahaf</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MK<span>.</span>DEV</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="kahaf_resume.pdf" download class="btn btn-primary" style="padding:6px 16px;">Resume</a></li>
+  </ul>
+</nav>
 
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">&lt; Computer Engineering Student /&gt;</div>
+      <div class="hero-name">Muhammad<br><span>Kahaf</span></div>
+      <div class="hero-sub">BSc Computer Engineering · COMSATS University Abbottabad</div>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+        <a href="kahaf_resume.pdf" download class="btn btn-outline">⬇ Resume</a>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <div class="avatar-wrap">
+        <img src="profile.jpg" alt="Muhammad Kahaf" onerror="this.style.display='none';this.parentElement.style.background='var(--panel)';this.parentElement.innerHTML+='<div style=\'font-family:Share Tech Mono,monospace;font-size:3rem;color:var(--accent);display:flex;align-items:center;justify-content:center;height:100%;\'>MK</div>'"/>
+        <div class="corner-bl"></div>
+      </div>
+      <div class="hero-stat">
+        CGPA · 3.89 / 4.00
+        <div class="cgpa-bar"><div class="cgpa-fill"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <!-- SECTIONS -->
-  <div id="hero"></div>
-  <div id="about"></div>
-  <div id="skills"></div>
-  <div id="projects"></div>
-  <div id="achievements"></div>
-  <div id="contact"></div>
-  <div id="footer"></div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">about_me</div>
+  <h2>About Me</h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm an undergraduate Computer Engineering student at COMSATS University Islamabad, Abbottabad Campus, expected to graduate in 2027. With a strong GPA of 3.89, I bring a passion for problem-solving and software development to everything I build.</p>
+      <p>My core strengths lie in C++ and Python development, Object-Oriented Programming, Data Structures, and Database Management. I enjoy taking on complex engineering challenges and turning them into clean, functional solutions.</p>
+      <p>From building secure digital voting systems with RSA encryption to real-time hand motion tracking in Unity — I love projects that sit at the intersection of software and real-world impact.</p>
+      <p>Currently seeking internship opportunities where I can contribute meaningfully and grow as an engineer.</p>
+    </div>
+    <div class="courses-list">
+      <h3>Relevant Coursework</h3>
+      <ul>
+        <li>Object Oriented Programming (OOP)</li>
+        <li>Database Management System (DBMS)</li>
+        <li>Data Structures</li>
+        <li>Computer Organization & Architecture</li>
+        <li>Microprocessor Systems & Interfacing</li>
+        <li>Numerical Computation</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <!-- JS -->
-  <script src="assets/js/loadSections.js"></script>
-  <script src="assets/js/projects.js"></script>
-  <script src="assets/js/main.js"></script>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">tech_stack</div>
+  <h2>Skills</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-card"><div class="skill-icon">⚙️</div><div class="skill-name">C++</div></div>
+    <div class="skill-card"><div class="skill-icon">🐍</div><div class="skill-name">Python</div></div>
+    <div class="skill-card"><div class="skill-icon">🗄️</div><div class="skill-name">MySQL</div></div>
+    <div class="skill-card"><div class="skill-icon">🎮</div><div class="skill-name">Unity</div></div>
+    <div class="skill-card"><div class="skill-icon">📐</div><div class="skill-name">MATLAB</div></div>
+    <div class="skill-card"><div class="skill-icon">🔌</div><div class="skill-name">Proteus</div></div>
+    <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">MS Excel</div></div>
+    <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">Canva</div></div>
+  </div>
+</section>
 
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">engineering_problems</div>
+  <h2>Projects</h2>
+  <div class="projects-list">
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-title">Secure Digital Voting System</div>
+        <div class="project-num">PROJECT_01</div>
+      </div>
+      <p class="project-desc">
+        A GUI-based secure digital voting system built with Python (Tkinter) and MySQL. Features TOTP-based voter authentication, RSA encryption for data protection, automated result sharing via email, and real-time result accuracy — all while preserving voter anonymity and election integrity.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Tkinter</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">RSA Encryption</span>
+        <span class="tag">TOTP Auth</span>
+      </div>
+      <a href="https://github.com/smuhammadkahaf/Voting-System" target="_blank" class="project-link">⟶ View on GitHub</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-title">Hand Motion Tracking in Unity</div>
+        <div class="project-num">PROJECT_02</div>
+      </div>
+      <p class="project-desc">
+        A real-time hand motion tracking system that captures finger and hand movements and replicates them inside the Unity game engine. Implemented real-time data acquisition, serial communication, and motion mapping logic to ensure smooth animation and accurate gesture replication for interactive applications.
+      </p>
+      <div class="project-tags">
+        <span class="tag">Unity</span>
+        <span class="tag">C#</span>
+        <span class="tag">Serial Communication</span>
+        <span class="tag">Motion Tracking</span>
+        <span class="tag">Embedded Systems</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-header">
+        <div class="project-title">File Encryption & Decryption — RSA Cipher</div>
+        <div class="project-num">PROJECT_03</div>
+      </div>
+      <p class="project-desc">
+        A C++ implementation of the RSA cipher for encrypting and decrypting text files. Generates public/private key pairs, encrypts files using the private key, and decrypts them using the correct public key — demonstrating applied cryptography concepts.
+      </p>
+      <div class="project-tags">
+        <span class="tag">C++</span>
+        <span class="tag">RSA Algorithm</span>
+        <span class="tag">Cryptography</span>
+        <span class="tag">Key Generation</span>
+      </div>
+      <a href="https://github.com/smuhammadkahaf/RSA_in_CPP/" target="_blank" class="project-link">⟶ View on GitHub</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">recognition</div>
+  <h2>Achievements</h2>
+  <div class="achievements-list reveal">
+    <div class="ach-card">
+      <div class="ach-badge">🥇</div>
+      <div class="ach-body">
+        <div class="ach-title">1st Position — Secure Voting System · Dept. of Computer Engineering</div>
+        <div class="ach-date">JULY 23, 2025</div>
+      </div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-badge">🥇</div>
+      <div class="ach-body">
+        <div class="ach-title">1st Position — RSA File Encryption System · Dept. of Electrical & Computer Engineering</div>
+        <div class="ach-date">JANUARY 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">reach_out</div>
+  <h2>Contact</h2>
+  <div class="contact-grid reveal">
+    <div class="contact-info">
+      <a href="mailto:smuhammadkahaf@gmail.com" class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <span class="contact-label">EMAIL</span>
+          <span class="contact-val">smuhammadkahaf@gmail.com</span>
+        </div>
+      </a>
+      <a href="tel:+923340966716" class="contact-item">
+        <span class="contact-icon">📞</span>
+        <div>
+          <span class="contact-label">PHONE</span>
+          <span class="contact-val">+92 334 0966716</span>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/muhammad-kahaf-shaikh-1b1a66223/" target="_blank" class="contact-item">
+        <span class="contact-icon">🔗</span>
+        <div>
+          <span class="contact-label">LINKEDIN</span>
+          <span class="contact-val">muhammad-kahaf-shaikh</span>
+        </div>
+      </a>
+      <a href="https://github.com/smuhammadkahaf" target="_blank" class="contact-item">
+        <span class="contact-icon">🐙</span>
+        <div>
+          <span class="contact-label">GITHUB</span>
+          <span class="contact-val">smuhammadkahaf</span>
+        </div>
+      </a>
+      <div class="contact-item" style="cursor:default;">
+        <span class="contact-icon">📍</span>
+        <div>
+          <span class="contact-label">LOCATION</span>
+          <span class="contact-val">Abbottabad, Pakistan</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-msg">
+      <p>I'm actively looking for internship opportunities where I can apply my skills in software development, embedded systems, and security. If you're working on something interesting — I'd love to hear from you.</p>
+      <a href="mailto:smuhammadkahaf@gmail.com" class="btn btn-primary">Send a Message</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME DOWNLOAD -->
+<section id="resume" style="padding-top:0;">
+  <div class="resume-section reveal">
+    <div class="section-label" style="margin-bottom:12px;">resume</div>
+    <h2 style="border:none;margin-bottom:12px;">Download My Resume</h2>
+    <p>A full overview of my education, projects, skills, and achievements.</p>
+    <a href="kahaf_resume.pdf" download class="btn btn-primary" style="font-size:0.9rem;padding:14px 36px;">⬇ Download PDF Resume</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & built by <span>Muhammad Kahaf</span> · 2025 · COMSATS University Abbottabad</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Stagger children of grids
+  document.querySelectorAll('.skills-grid, .projects-list, .achievements-list').forEach(parent => {
+    [...parent.children].forEach((child, i) => {
+      child.style.transitionDelay = (i * 0.08) + 's';
+    });
+  });
+</script>
 </body>
 </html>

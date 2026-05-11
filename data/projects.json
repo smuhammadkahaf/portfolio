@@ -1,0 +1,15 @@
+[
+  {
+    "title": "Secure Digital Voting System",
+    "description": "Python and MySQL based secure voting system with RSA encryption and TOTP authentication.",
+    "tags": ["Python", "MySQL", "Tkinter"],
+    "github": "https://github.com/smuhammadkahaf/Voting-System"
+  },
+
+  {
+    "title": "RSA File Encryption System",
+    "description": "C++ implementation of RSA encryption and decryption for secure file handling.",
+    "tags": ["C++", "Cryptography"],
+    "github": "https://github.com/smuhammadkahaf/RSA_in_CPP/"
+  }
+]

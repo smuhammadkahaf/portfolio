@@ -1,0 +1,15 @@
+/* About Section Styles */
+#about {
+  padding: 60px 20px;
+}
+
+#about .about-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#about p {
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
